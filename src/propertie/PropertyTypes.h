@@ -1,0 +1,12 @@
+//
+// Created by Aleksander Domagała on 08.11.2016.
+//
+
+#ifndef ENGINEERINGWORK_PROPERTYTYPES_H
+#define ENGINEERINGWORK_PROPERTYTYPES_H
+
+typedef enum {
+    CAM_DEVICE_LIST
+} PROPERTY_TYPES;
+
+#endif //ENGINEERINGWORK_PROPERTYTYPES_H
