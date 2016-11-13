@@ -1,73 +1,57 @@
 //
-// Created by Aleksander Domagała on 11.11.2016.
+// Created by Aleksander Domagała on 13.11.2016.
 //
 
-#include <windows.h>
-#include <dshow.h>
-#include <uuids.h>
-#include "propertie/Property.h"
+#include "CamDevicesListInit.h"
 
-HRESULT EnumerateDevices(REFGUID category, IEnumMoniker **ppEnum)
-{
-    // Create the System Device Enumerator.
-    ICreateDevEnum *pDevEnum;
-    HRESULT hr = CoCreateInstance(CLSID_SystemDeviceEnum, nullptr,
-                                  CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pDevEnum));
+HRESULT CamDevicesListInit::handleResults = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
-    if (SUCCEEDED(hr))
-    {
-        // Create an enumerator for the category.
-        hr = pDevEnum->CreateClassEnumerator(category, ppEnum, 0);
-        if (hr == S_FALSE)
-        {
-            hr = VFW_E_NOT_FOUND;  // The category is empty. Treat as an error.
-        }
-        pDevEnum->Release();
-    }
-    return hr;
+void CamDevicesListInit::addCamDeviceListToAppProperties() {
+    checkHandlerResultsIsCorrect();
+
+    createCamDeviceList();
 }
 
+void CamDevicesListInit::createCamDeviceList() {
+    enumerateDevices(CLSID_VideoInputDeviceCategory);
 
-void DisplayDeviceInformation(IEnumMoniker *pEnum)
-{
-    IMoniker *pMoniker = nullptr;
+    checkHandlerResultsIsCorrect();
 
-    while (pEnum->Next(1, &pMoniker, nullptr) == S_OK)
-    {
-        IPropertyBag *pPropBag;
-        HRESULT hr = pMoniker->BindToStorage(0, 0, IID_PPV_ARGS(&pPropBag));
-        if (FAILED(hr))
-        {
-            pMoniker->Release();
-            continue;
-        }
+    CoUninitialize();
+}
 
-        VARIANT var;
-        VariantInit(&var);
+void CamDevicesListInit::enumerateDevices(const GUID category) {
+    ICreateDevEnum *devEnum;
 
-        // Get description or friendly name.
-        hr = pPropBag->Read(L"Description", &var, 0);
-        if (FAILED(hr))
-        {
-            hr = pPropBag->Read(L"FriendlyName", &var, 0);
-        }
-        if (SUCCEEDED(hr))
-        {
-            printf("%S\n", var.bstrVal);
-            VariantClear(&var);
-        }
+    handleResults = CoCreateInstance(CLSID_SystemDeviceEnum, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&devEnum));
 
-        hr = pPropBag->Write(L"FriendlyName", &var);
+    checkHandlerResultsIsCorrect();
 
-        hr = pPropBag->Read(L"DevicePath", &var, 0);
-        if (SUCCEEDED(hr))
-        {
-            // The device path is not intended for display.
-            printf("Device path: %S\n", var.bstrVal);
-            VariantClear(&var);
-        }
+    handleResults = devEnum->CreateClassEnumerator(category, &enumMoniker, 0);
+    checkCategoryIsNotEmpty();
+    devEnum->Release();
+}
 
-        pPropBag->Release();
-        pMoniker->Release();
+void CamDevicesListInit::checkHandlerResultsIsCorrect() {
+    if (FAILED(handleResults)) {
+        //TODO: dodac wyjątek
     }
+}
+
+void CamDevicesListInit::checkCategoryIsNotEmpty() {
+    if (handleResults == S_FALSE) {
+        handleResults = VFW_E_NOT_FOUND;
+    }
+}
+
+void CamDevicesListInit::getInformationAboutCamDevice() {
+    DisplayDeviceInformation(enumMoniker);
+
+
+
+    releaseEnumMoniker();
+}
+
+void CamDevicesListInit::releaseEnumMoniker() {
+    enumMoniker->Release();
 }

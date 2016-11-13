@@ -4,9 +4,10 @@
 
 #include "AppInit.h"
 
-const std::vector<std::function<void()>> AppInit::listInitFunction({
-                                                                           []() {}
-                                                                   });
+const std::vector<std::function<void()>>
+        AppInit::listInitFunction({
+                                          CamDevicesListInit::addCamDeviceListToAppProperties
+                                  });
 
 AppInit *AppInit::instance = nullptr;
 

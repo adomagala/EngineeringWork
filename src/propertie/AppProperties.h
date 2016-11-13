@@ -19,12 +19,16 @@ class AppProperties {
 
     AppProperties() = default;
 
+    void addProperty(const PROPERTY_TYPES &propertyName, const std::shared_ptr<Property> &property);
+
+    friend class CamDevicesListInit;
+
 public:
-    AppProperties &getInstance();
+    static AppProperties &getInstance();
 
-    const Property &getPropertyByName(const PROPERTY_TYPES &propertyTypes);
+    const Property &getPropertyByName(const PROPERTY_TYPES &propertyName);
 
-    bool isContainsPropertyName(const PROPERTY_TYPES &propertyTypes);
+    bool isContainsPropertyName(const PROPERTY_TYPES &propertyName);
 
 };
 

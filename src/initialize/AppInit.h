@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "CamDevicesListInit.h"
+
 class AppInit {
     static const std::vector<std::function<void()>> listInitFunction;
     static AppInit *instance;
