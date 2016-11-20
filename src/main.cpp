@@ -90,32 +90,23 @@ int main()
     return 0;
 }*/
 
-#include <string>
-
-class A {
-public:
-    A() {
-
-    }
-    std::string returnName() {
-        return "A";
-    }
-};
-
-class B : public A {
-public:
-    B() : A() {
-
-    }
-    std::string returnName() {
-        return "B";
-    }
-};
+#include "initialize/AppInit.h"
+#include <iostream>
 
 int main() {
-    A &test = *(new B());
+/*    AppInit init = AppInit::getInstance();
 
-    std::string a = test.returnName();
+    init.initialization();
+
+    AppProperties property = AppProperties::getInstance();
+
+    Property *list = property.getPropertyByName(PROPERTY_TYPES::CAM_DEVICE_LIST);
+
+    ListCamDevice *aa = (ListCamDevice*)list;
+
+    //std::vector<CamDevice> l = aa->getDevicesList();*/
+
+
 
     return 0;
 }

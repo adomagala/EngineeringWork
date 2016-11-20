@@ -15,18 +15,18 @@
 class AppProperties {
     static AppProperties* instance;
 
-    std::map<PROPERTY_TYPES, std::shared_ptr<Property>> properties;
+    std::map<int, std::shared_ptr<Property>> properties;
 
     AppProperties() = default;
 
-    void addProperty(const PROPERTY_TYPES &propertyName, const std::shared_ptr<Property> &property);
+    void addProperty(PROPERTY_TYPES propertyName, const std::shared_ptr<Property> &property);
 
     friend class CamDevicesListInit;
 
 public:
     static AppProperties &getInstance();
 
-    const Property &getPropertyByName(const PROPERTY_TYPES &propertyName);
+    Property *getPropertyByName(PROPERTY_TYPES propertyName);
 
     bool isContainsPropertyName(const PROPERTY_TYPES &propertyName);
 

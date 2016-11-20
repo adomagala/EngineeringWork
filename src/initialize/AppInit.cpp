@@ -6,7 +6,7 @@
 
 const std::vector<std::function<void()>>
         AppInit::listInitFunction({
-                                          CamDevicesListInit::addCamDeviceListToAppProperties
+                                          CamDevicesListInit::init
                                   });
 
 AppInit *AppInit::instance = nullptr;

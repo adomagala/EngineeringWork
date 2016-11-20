@@ -18,7 +18,7 @@ class AppInit {
     AppInit() = default;
 
 public:
-    AppInit &getInstance();
+    static AppInit &getInstance();
 
     void initialization() const;
 };
