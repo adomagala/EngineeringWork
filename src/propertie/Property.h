@@ -2,13 +2,15 @@
 // Created by Aleksander Domagała on 08.11.2016.
 //
 
-#ifndef ENGINEERINGWORK_PROPERTY_H
-#define ENGINEERINGWORK_PROPERTY_H
+#ifndef ENGINEERING_WORK_PROPERTY_H
+#define ENGINEERING_WORK_PROPERTY_H
 
 
 class Property {
 protected:
-    Property() {};
+    Property() = default;
+
+    Property(const Property &) = default;
 };
 
-#endif //ENGINEERINGWORK_PROPERTY_H
+#endif //ENGINEERING_WORK_PROPERTY_H

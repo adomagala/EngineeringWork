@@ -2,8 +2,8 @@
 // Created by Aleksander Domagała on 08.11.2016.
 //
 
-#ifndef ENGINEERINGWORK_CAMDEVICE_H
-#define ENGINEERINGWORK_CAMDEVICE_H
+#ifndef ENGINEERING_WORK_CAM_DEVICE_H
+#define ENGINEERING_WORK_CAM_DEVICE_H
 
 #include <string>
 
@@ -19,4 +19,4 @@ public:
     const std::string &getCamerDevicePath() const;
 };
 
-#endif //ENGINEERINGWORK_CAMDEVICE_H
+#endif //ENGINEERING_WORK_CAM_DEVICE_H

@@ -2,8 +2,8 @@
 // Created by Aleksander Domagała on 13.11.2016.
 //
 
-#ifndef ENGINEERINGWORK_CAMDEVICESLISTINIT_H
-#define ENGINEERINGWORK_CAMDEVICESLISTINIT_H
+#ifndef ENGINEERING_WORK_CAM_DEVICES_LIST_INIT_H
+#define ENGINEERING_WORK_CAM_DEVICES_LIST_INIT_H
 
 #include <windows.h>
 #include <dshow.h>
@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "../propertie/ListCamDevice.h"
+#include "../propertie/CamDeviceList.h"
 #include "../propertie/AppProperties.h"
 #include "../propertie/PropertyTypes.h"
 #include "../cam_device/CamDevice.h"
@@ -29,6 +29,8 @@ class CamDevicesListInit {
     static std::vector<CamDevice> camDeviceList;
 
     CamDevicesListInit() = delete;
+
+    CamDevicesListInit(const CamDevicesListInit &) = delete;
 
     static void checkHandlerResultsIsCorrect();
 
@@ -77,4 +79,4 @@ public:
 };
 
 
-#endif //ENGINEERINGWORK_CAMDEVICESLISTINIT_H
+#endif //ENGINEERING_WORK_CAM_DEVICES_LIST_INIT_H

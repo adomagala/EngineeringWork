@@ -2,8 +2,8 @@
 // Created by Aleksander Domagała on 08.11.2016.
 //
 
-#ifndef ENGINEERINGWORK_APPPROPERTIES_H
-#define ENGINEERINGWORK_APPPROPERTIES_H
+#ifndef ENGINEERING_WORK_APP_PROPERTIES_H
+#define ENGINEERING_WORK_APP_PROPERTIES_H
 
 #include <map>
 #include <string>
@@ -15,21 +15,26 @@
 class AppProperties {
     static AppProperties* instance;
 
-    std::map<int, std::shared_ptr<Property>> properties;
+    std::map<int, std::shared_ptr<const Property>> properties;
 
     AppProperties() = default;
 
-    void addProperty(PROPERTY_TYPES propertyName, const std::shared_ptr<Property> &property);
+    AppProperties(const AppProperties &) = delete;
+
+    void addProperty(const PROPERTY_TYPES &propertyName, const std::shared_ptr<Property> &property);
 
     friend class CamDevicesListInit;
+    friend class AppVersionInit;
 
 public:
     static AppProperties &getInstance();
 
-    Property *getPropertyByName(PROPERTY_TYPES propertyName);
+    std::shared_ptr<const Property> getPropertyByName(const PROPERTY_TYPES &propertyName);
+
+    //template std::shared_ptr<T> getPropertyByName<T>(const PROPERTY_TYPES &propertyName, T a);
 
     bool isContainsPropertyName(const PROPERTY_TYPES &propertyName);
 
 };
 
-#endif //ENGINEERINGWORK_APPPROPERTIES_H
+#endif //ENGINEERING_WORK_APP_PROPERTIES_H

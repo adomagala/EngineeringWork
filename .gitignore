@@ -1,0 +1,5 @@
+.idea/
+cmake-build-debug/
+src/cmake_auto_create/
+target/
+**/*.iml

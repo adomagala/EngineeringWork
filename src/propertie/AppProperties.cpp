@@ -6,16 +6,12 @@
 
 AppProperties *AppProperties::instance = nullptr;
 
-void AppProperties::addProperty(PROPERTY_TYPES propertyName, const std::shared_ptr<Property> &property) {
+void AppProperties::addProperty(const PROPERTY_TYPES &propertyName, const std::shared_ptr<Property> &property) {
     if (isContainsPropertyName(propertyName)) {
         //TODO: dodać wyjątek
     }
 
-    std::pair<int, std::shared_ptr<Property>> newPropertyElement(1, property);
-
-    properties.insert(newPropertyElement);
-
-    int qw = 0;
+    properties[propertyName] = property;
 }
 
 AppProperties &AppProperties::getInstance() {
@@ -26,12 +22,12 @@ AppProperties &AppProperties::getInstance() {
     return *instance;
 }
 
-Property  *AppProperties::getPropertyByName(PROPERTY_TYPES propertyName) {
+std::shared_ptr<const Property> AppProperties::getPropertyByName(const PROPERTY_TYPES &propertyName) {
     if (!isContainsPropertyName(propertyName)) {
         //TODO: dodać wyjątek
     }
 
-    return properties[1].get();
+    return properties[propertyName];
 }
 
 bool AppProperties::isContainsPropertyName(const PROPERTY_TYPES &propertyName) {

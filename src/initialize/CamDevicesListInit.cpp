@@ -167,9 +167,9 @@ void CamDevicesListInit::releaseEnumMoniker() {
 }
 
 void CamDevicesListInit::addCamDeviceListToAppProperties() {
-    std::shared_ptr<ListCamDevice> listCamDeviceProperty(new ListCamDevice(camDeviceList));
+    std::shared_ptr<CamDeviceList> CamDeviceListProperty(new CamDeviceList(camDeviceList));
 
-    AppProperties appProperties = AppProperties::getInstance();
+    AppProperties &appProperties = AppProperties::getInstance();
 
-    appProperties.addProperty(PROPERTY_TYPES::CAM_DEVICE_LIST, listCamDeviceProperty);
+    appProperties.addProperty(PROPERTY_TYPES::CAM_DEVICE_LIST, CamDeviceListProperty);
 }
